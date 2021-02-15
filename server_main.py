@@ -58,6 +58,40 @@ def get_user():
         }
 
 
+
+@app.route("/users/change_password", methods=['PUT'])
+def change_user_password():
+    user_name = request.json.get("user_name")
+    user_password = request.json.get("user_password")
+    user_new_password = request.json.get("user_new_password")
+    valid = valid_parameters(user_name=user_name,user_password = user_password,user_new_password = user_new_password)
+
+    if valid != True:
+        return valid
+
+    user = Users.get_user(user_name)
+
+    if user is None:
+        return {
+            "error": f"user {user_name} does not exist"
+        }
+
+    res = user.change_password (user_password,user_new_password)
+
+    if res is None:
+        return{
+            "error":"some parameters are wrong"
+        }
+
+    else:
+        set_from_db.write_users_to_file()
+
+        return {
+            "message": "OK",
+            "data": user.get_details()
+        }
+
+
 @app.route("/songs/ranked_songs", methods=['GET'])
 def get_ranked_songs():
     rank = int(request.args.get("rank"))

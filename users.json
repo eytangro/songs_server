@@ -1,22 +1,24 @@
 {
-    "eytan": {
-        "password": "202cb962ac59075b964b07152d234b70",
-        "name": "eytan",
-        "friends": [],
-        "playlists": {
-            "cool songs": [
-                "hamilton1"
-            ]
-        }
-    },
     "eytan1": {
         "password": "202cb962ac59075b964b07152d234b70",
         "name": "eytan1",
-        "friends": [],
+        "friends": [
+            "adam"
+        ],
         "playlists": {
             "cool songs": [
-                "hamilton1"
-            ]
+                "hamilton",
+                "bali"
+            ],
+            "cool songs_2": []
+        }
+    },
+    "eytan2": {
+        "password": "202cb962ac59075b964b07152d234b70",
+        "name": "eytan2",
+        "friends": [],
+        "playlists": {
+            "cool songs_2": []
         }
     }
 }

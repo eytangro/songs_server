@@ -19,5 +19,19 @@
         "genre": "metal",
         "performer": "sub",
         "rating": 4
+    },
+    {
+        "title": "bali_1",
+        "year": "2021",
+        "genre": "metal",
+        "performer": "sub",
+        "rating": 0
+    },
+    {
+        "title": "bali_2",
+        "year": "2021",
+        "genre": "metal",
+        "performer": "sub",
+        "rating": 0
     }
 ]
