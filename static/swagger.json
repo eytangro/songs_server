@@ -17,7 +17,7 @@
     }
   ],
   "paths": {
-    "/users": {
+    "/users/add_user": {
       "post": {
         "tags": [
           "/users"
@@ -37,6 +37,45 @@
         },
         "x-codegen-request-body-name": "body"
       }
+    },
+    "/users/get_user": {
+      "get": {
+        "tags": [
+          "/users"
+        ],
+        "summary": "Gets user",
+        "operationId": "get_user",
+        "parameters": [
+          {
+            "name": "user_name",
+            "in": "path",
+            "description": "user name is also user's ID",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ]
+      }
+    },
+    "/users/add_friend": {
+      "post": {
+        "tags": [
+          "/users"
+        ],
+        "summary": "Adds another user as a friend",
+        "operationId": "add_friend",
+        "requestBody": {
+          "description": "Adds another user as a friend",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Friend"
+              }
+            }
+          }
+        }
+      }
     }
   },
   "components": {
@@ -47,12 +86,38 @@
           "user_password"
         ],
         "type": "object",
-         "properties": {
-           "user_name":
-           {"type": "string"},
-           "user_password":
-           {"type": "string"}
-         }
+        "properties": {
+          "user_name": {
+            "type": "string",
+            "example": "Arnold"
+          },
+          "user_password": {
+            "type": "string",
+            "example": "topsicret"
+          }
+        }
+      },
+      "Friend": {
+        "required": [
+          "user_name",
+          "user_password",
+          "friend_name"
+        ],
+        "type": "object",
+        "properties": {
+          "user_name": {
+            "type": "string",
+            "example": "Arnold"
+          },
+          "user_password": {
+            "type": "string",
+            "example": "topsicret"
+          },
+          "friend_name": {
+            "type": "string",
+            "example": "Adam"
+          }
+        }
       }
     }
   }
