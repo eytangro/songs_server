@@ -7,7 +7,7 @@
   },
   "servers": [
     {
-      "url": "/"
+      "url": "http://song_server.com"
     }
   ],
   "tags": [
@@ -15,10 +15,18 @@
       "name": "/users",
       "description": "API for user actions"
     },
-    {"name": "/songs",
-      "description": "API for interaction with songs"},
-    {"name": "/playlists",
-      "description": "API for interaction with playlists"}
+    {
+      "name": "/songs",
+      "description": "API for interaction with songs"
+    },
+    {
+      "name": "/playlists",
+      "description": "API for interaction with playlists"
+    },
+    {
+      "name": "/admin",
+      "description": "ADMIN SECTION - NOT FOR TESTING - USE WITH CAUTION"
+    }
   ],
   "paths": {
     "/users/add_user": {
@@ -200,7 +208,11 @@
             "required": true,
             "schema": {
               "type": "string",
-              "enum": ["less","eq","greater"]
+              "enum": [
+                "less",
+                "eq",
+                "greater"
+              ]
             }
           }
         ]
@@ -223,6 +235,78 @@
             }
           }
         }
+      }
+    },
+    "/admin/delete_all_users": {
+      "delete": {
+        "tags": [
+          "/admin"
+        ],
+        "summary": "Resets users in system",
+        "operationId": "delete_all_users",
+        "requestBody": {
+          "description": "This action will delete all the users in the system"
+        },
+        "x-codegen-request-body-name": "body"
+      }
+    },
+    "/admin/delete_all_songs": {
+      "delete": {
+        "tags": [
+          "/admin"
+        ],
+        "summary": "Resets songs in system",
+        "operationId": "delete_all_songs",
+        "requestBody": {
+          "description": "This action will delete all the songs in the system"
+        },
+        "x-codegen-request-body-name": "body"
+      }
+    },
+    "/admin/set_songs": {
+      "post": {
+        "tags": [
+          "/admin"
+        ],
+        "summary": "Sets songs ",
+        "operationId": "set_songs",
+        "requestBody": {
+          "description": "Uploads an array of songs to the system",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/Song"
+                }
+              }
+            }
+          }
+        },
+        "x-codegen-request-body-name": "body"
+      }
+    },
+    "/admin/set_users": {
+      "post": {
+        "tags": [
+          "/admin"
+        ],
+        "summary": "Sets users ",
+        "operationId": "set_users",
+        "requestBody": {
+          "description": "Uploads an array of users to the system",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/User"
+                }
+              }
+            }
+          }
+        },
+        "x-codegen-request-body-name": "body"
       }
     }
   },
