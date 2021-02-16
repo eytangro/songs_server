@@ -1,68 +1,80 @@
-from flask import jsonify, abort, request, Blueprint
+import configparser
 import connexion
-from flask import request
-from flask.views import MethodView
+import requests
 
-REQUEST_API = Blueprint('request_api', __name__)
-
-
-def get_blueprint():
-    """Return the blueprint for the main app module"""
-    return REQUEST_API
+config = configparser.ConfigParser()
+config.read('./sources/config.ini')
+host = config['server']['host']
+port = config['server']['port']
+target = 'http://' + host + ':' + port
 
 
 def add_user():
-    print(connexion.request.json['user_name'])
-    return 'Hello {name}'.format(name=connexion.request.json['user_name'])
+    r = requests.post(url=target + '/users/add_user', json=connexion.request.json)
+    print(r)
+    return r.json()
 
 
 def get_user():
-    return 'Hello {name}'.format(name=connexion.request.args['user_name'])
+    r = requests.get(url=target + '/users/get_user', params=connexion.request.args['user_name'])
+    return r.json()
 
 
 def add_friend():
-    return True
+    r = requests.put(url='/users/add_friend', json=connexion.request.json)
+    return r.json()
 
 
 def change_password():
-    return True
+    r = requests.put(url='users/change_password', json=connexion.request.json)
+    return r.json()
 
 
 def add_playlist():
-    return True
+    r = requests.post(url=target + '/users/add_playlist', json=connexion.request.json)
+    return r.json()
 
 
 def add_song():
-    return True
+    r = requests.post(url=target + '/songs/add_song', json=connexion.request.json)
+    return r.json()
 
 
 def song_upvote():
-    return True
+    r = requests.put(url='/songs/upvote', json=connexion.request.json)
+    return r.json()
 
 
 def song_downvote():
-    return True
+    r = requests.put(url='/songs/downvote', json=connexion.request.json)
+    return r.json()
 
 
 def ranked_songs():
-    return True
+    r = requests.get(url=target + '/songs/ranked_songs', params=connexion.request.args['user_name'])
+    return r.json()
 
 
 def playlist_add_song():
-    return True
+    r = requests.post(url=target + '/playlists/add_song', json=connexion.request.json)
+    return r.json()
 
 
 def delete_all_users():
-    return True
+    r = requests.delete(target + '/admin/delete_all_users')
+    return r.json()
 
 
 def delete_all_songs():
-    return True
+    r = requests.delete(target + '/admin/delete_all_songs')
+    return r.json()
 
 
 def set_songs():
-    return True
+    r = requests.post(url=target + '/admin/set_songs', json=connexion.request.json)
+    return r.json()
 
 
 def set_users():
-    return True
+    r = requests.post(url=target + '/admin/set_users', json=connexion.request.json)
+    return r.json()
