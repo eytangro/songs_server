@@ -1,0 +1,60 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "description": "made by AdamZ",
+    "version": "1.0.0",
+    "title": ""
+  },
+  "servers": [
+    {
+      "url": "/"
+    }
+  ],
+  "tags": [
+    {
+      "name": "/users",
+      "description": "API for user actions"
+    }
+  ],
+  "paths": {
+    "/users": {
+      "post": {
+        "tags": [
+          "/users"
+        ],
+        "summary": "Add a new user to the system",
+        "operationId": "add_user",
+        "requestBody": {
+          "description": "User that needs to be added to the system",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/User"
+              }
+            }
+          },
+          "required": true
+        },
+        "x-codegen-request-body-name": "body"
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "User": {
+        "required": [
+          "user_name",
+          "user_password"
+        ],
+        "type": "object",
+         "properties": {
+           "user_name":
+           {"type": "string"},
+           "user_password":
+           {"type": "string"}
+         }
+      }
+    }
+  }
+}
+
