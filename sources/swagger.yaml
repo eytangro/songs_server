@@ -1,0 +1,410 @@
+openapi: "3.0.0"
+info:
+  description: made by AdamZ
+  version: "1.0.0"
+  title: 'Song Server Swagger'
+servers:
+- url: http://song_server.com
+tags:
+- name: "/users"
+  description: API for user actions
+- name: "/songs"
+  description: API for interaction with songs
+- name: "/playlists"
+  description: API for interaction with playlists
+- name: "/admin"
+  description: ADMIN SECTION - NOT FOR TESTING - USE WITH CAUTION
+paths:
+  "/users/add_user":
+    post:
+      tags:
+      - "/users"
+      summary: Add a new user to the system
+      operationId: rest_api_routes.add_user
+
+      responses:
+        200:
+          description: greeting response
+          content:
+            text/plain:
+              schema:
+                type: string
+                example: "action completed!"
+      requestBody:
+        description: User that needs to be added to the system
+        content:
+          application/json:
+            schema:
+              "$ref": "#/components/schemas/User"
+        required: true
+      x-codegen-request-body-name: body
+  "/users/get_user":
+    get:
+      tags:
+      - "/users"
+      summary: Gets user
+      operationId: rest_api_routes.get_user
+      responses:
+        200:
+          description: greeting response
+          content:
+            text/plain:
+              schema:
+                type: string
+                example: "action completed!"
+      parameters:
+      - name: user_name
+        in: query
+        description: user name is also user's ID
+        required: true
+        schema:
+          type: string
+  "/users/add_friend":
+    put:
+      tags:
+      - "/users"
+      summary: Adds another user as a friend
+      operationId: rest_api_routes.add_friend
+      responses:
+        200:
+          description: greeting response
+          content:
+            text/plain:
+              schema:
+                type: string
+                example: "action completed!"
+      requestBody:
+        description: Adds another user as a friend
+        content:
+          application/json:
+            schema:
+              "$ref": "#/components/schemas/Friend"
+  "/users/change_password":
+    put:
+      tags:
+      - "/users"
+      summary: Change password
+      operationId: rest_api_routes.change_password
+      responses:
+        200:
+          description: greeting response
+          content:
+            text/plain:
+              schema:
+                type: string
+                example: "action completed!"
+      requestBody:
+        description: Changes password for the user
+        content:
+          application/json:
+            schema:
+              "$ref": "#/components/schemas/Password"
+  "/users/add_playlist":
+    post:
+      tags:
+      - "/users"
+      summary: Adds playlist
+      operationId: rest_api_routes.add_playlist
+      responses:
+        200:
+          description: greeting response
+          content:
+            text/plain:
+              schema:
+                type: string
+                example: "action completed!"
+      requestBody:
+        description: Adds a new playlist to user
+        content:
+          application/json:
+            schema:
+              "$ref": "#/components/schemas/Playlist"
+  "/songs/add_song":
+    post:
+      tags:
+      - "/songs"
+      summary: Adds new song to playlist
+      operationId: rest_api_routes.add_song
+      responses:
+        200:
+          description: greeting response
+          content:
+            text/plain:
+              schema:
+                type: string
+                example: "action completed!"
+      requestBody:
+        description: Adds specific song to the user's playlist
+        content:
+          application/json:
+            schema:
+              "$ref": "#/components/schemas/Song"
+  "/songs/upvote":
+    put:
+      tags:
+      - "/songs"
+      summary: Increase songs rating
+      operationId: rest_api_routes.song_upvote
+      responses:
+        200:
+          description: greeting response
+          content:
+            text/plain:
+              schema:
+                type: string
+                example: "action completed!"
+      requestBody:
+        description: Rate specific song by upvoting
+        content:
+          application/json:
+            schema:
+              "$ref": "#/components/schemas/Voting"
+  "/songs/downvote":
+    put:
+      tags:
+      - "/songs"
+      summary: Decrease songs rating
+      operationId: rest_api_routes.song_downvote
+      responses:
+        200:
+          description: greeting response
+          content:
+            text/plain:
+              schema:
+                type: string
+                example: "action completed!"
+      requestBody:
+        description: Rate specific song by downvoting
+        content:
+          application/json:
+            schema:
+              "$ref": "#/components/schemas/Voting"
+  "/songs/ranked_songs":
+    get:
+      tags:
+      - "/songs"
+      summary: Get songs by rating
+      operationId: rest_api_routes.ranked_songs
+      responses:
+        200:
+          description: greeting response
+          content:
+            text/plain:
+              schema:
+                type: string
+                example: "action completed!"
+      parameters:
+      - name: rank
+        in: query
+        description: Rank of the songs
+        required: true
+        schema:
+          type: integer
+      - name: op
+        in: query
+        description: Rank of the songs
+        required: true
+        schema:
+          type: string
+          enum:
+          - less
+          - eq
+          - greater
+  "/playlists/add_song":
+    post:
+      tags:
+      - "/playlists"
+      summary: Decrease songs rating
+      operationId: rest_api_routes.playlist_add_song
+      responses:
+        200:
+          description: greeting response
+          content:
+            text/plain:
+              schema:
+                type: string
+                example: "action completed!"
+      requestBody:
+        description: Rate specific song by downvoting
+        content:
+          application/json:
+            schema:
+              "$ref": "#/components/schemas/Voting"
+  "/admin/delete_all_users":
+    delete:
+      tags:
+      - "/admin"
+      summary: Resets users in system
+      operationId: rest_api_routes.delete_all_users
+      responses:
+        200:
+          description: greeting response
+          content:
+            text/plain:
+              schema:
+                type: string
+                example: "action completed!"
+      x-codegen-request-body-name: body
+  "/admin/delete_all_songs":
+    delete:
+      tags:
+      - "/admin"
+      summary: Resets songs in system
+      operationId: rest_api_routes.delete_all_songs
+      responses:
+        200:
+          description: greeting response
+          content:
+            text/plain:
+              schema:
+                type: string
+                example: "action completed!"
+      x-codegen-request-body-name: body
+  "/admin/set_songs":
+    post:
+      tags:
+      - "/admin"
+      summary: 'Sets songs '
+      operationId: rest_api_routes.set_songs
+      responses:
+        200:
+          description: greeting response
+          content:
+            text/plain:
+              schema:
+                type: string
+                example: "action completed!"
+      requestBody:
+        description: Uploads an array of songs to the system
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                "$ref": "#/components/schemas/Song"
+      x-codegen-request-body-name: body
+  "/admin/set_users":
+    post:
+      tags:
+      - "/admin"
+      summary: 'Sets users '
+      operationId: rest_api_routes.set_users
+      responses:
+        200:
+          description: greeting response
+          content:
+            text/plain:
+              schema:
+                type: string
+                example: "action completed!"
+      requestBody:
+        description: Uploads an array of users to the system
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                "$ref": "#/components/schemas/User"
+      x-codegen-request-body-name: body
+components:
+  schemas:
+    User:
+      required:
+      - user_name
+      - user_password
+      type: object
+      properties:
+        user_name:
+          type: string
+          example: Arnold
+        user_password:
+          type: string
+          example: topsicret
+    Friend:
+      required:
+      - user_name
+      - user_password
+      - friend_name
+      type: object
+      properties:
+        user_name:
+          type: string
+          example: Arnold
+        user_password:
+          type: string
+          example: topsicret
+        friend_name:
+          type: string
+          example: Adam
+    Password:
+      required:
+      - user_name
+      - user_password
+      - user_new_password
+      type: object
+      properties:
+        user_name:
+          type: string
+          example: Arnold
+        user_password:
+          type: string
+          example: topsicret
+        user_new_password:
+          type: string
+          example: "(♥_♥)"
+    Playlist:
+      required:
+      - user_name
+      - user_password
+      - playlist_name
+      type: object
+      properties:
+        user_name:
+          type: string
+          example: Arnold
+        user_password:
+          type: string
+          example: topsicret
+        playlist_name:
+          type: string
+          example: I'll be back
+    Song:
+      required:
+      - song_genre
+      - song_year
+      - song_performer
+      - song_title
+      type: object
+      properties:
+        song_genre:
+          type: string
+          example: Rock
+        song_year:
+          type: integer
+          example: '1970'
+        song_performer:
+          type: string
+          example: Creedence Clearwater Revival
+        song_title:
+          type: string
+          example: Run Through the Jungle
+    Voting:
+      required:
+      - user_name
+      - user_password
+      - playlist_name
+      - song_title
+      type: object
+      properties:
+        user_name:
+          type: string
+          example: Arnold
+        user_password:
+          type: string
+          example: topsicret
+        playlist_name:
+          type: string
+          example: The best of the best of the best
+        song_title:
+          type: string
+          example: Run Through the Jungle
