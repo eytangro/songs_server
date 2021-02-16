@@ -14,7 +14,11 @@
     {
       "name": "/users",
       "description": "API for user actions"
-    }
+    },
+    {"name": "/songs",
+      "description": "API for interaction with songs"},
+    {"name": "/playlists",
+      "description": "API for interaction with playlists"}
   ],
   "paths": {
     "/users/add_user": {
@@ -48,7 +52,7 @@
         "parameters": [
           {
             "name": "user_name",
-            "in": "path",
+            "in": "query",
             "description": "user name is also user's ID",
             "required": true,
             "schema": {
@@ -59,7 +63,7 @@
       }
     },
     "/users/add_friend": {
-      "post": {
+      "put": {
         "tags": [
           "/users"
         ],
@@ -71,6 +75,150 @@
             "application/json": {
               "schema": {
                 "$ref": "#/components/schemas/Friend"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/users/change_password": {
+      "put": {
+        "tags": [
+          "/users"
+        ],
+        "summary": "Change password",
+        "operationId": "change_password",
+        "requestBody": {
+          "description": "Changes password for the user",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Password"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/users/add_playlist": {
+      "post": {
+        "tags": [
+          "/users"
+        ],
+        "summary": "Adds playlist",
+        "operationId": "add_playlist",
+        "requestBody": {
+          "description": "Adds a new playlist to user",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Playlist"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/songs/add_song": {
+      "post": {
+        "tags": [
+          "/songs"
+        ],
+        "summary": "Adds new song to playlist",
+        "operationId": "add_song",
+        "requestBody": {
+          "description": "Adds specific song to the user's playlist",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Song"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/songs/upvote": {
+      "put": {
+        "tags": [
+          "/songs"
+        ],
+        "summary": "Increase songs rating",
+        "operationId": "song_upvote",
+        "requestBody": {
+          "description": "Rate specific song by upvoting",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Voting"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/songs/downvote": {
+      "put": {
+        "tags": [
+          "/songs"
+        ],
+        "summary": "Decrease songs rating",
+        "operationId": "song_downvote",
+        "requestBody": {
+          "description": "Rate specific song by downvoting",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Voting"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/songs/ranked_songs": {
+      "get": {
+        "tags": [
+          "/songs"
+        ],
+        "summary": "Get songs by rating",
+        "operationId": "ranked_songs",
+        "parameters": [
+          {
+            "name": "rank",
+            "in": "query",
+            "description": "Rank of the songs",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "op",
+            "in": "query",
+            "description": "Rank of the songs",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": ["less","eq","greater"]
+            }
+          }
+        ]
+      }
+    },
+    "/playlists/add_song": {
+      "post": {
+        "tags": [
+          "/playlists"
+        ],
+        "summary": "Decrease songs rating",
+        "operationId": "playlist_add_song",
+        "requestBody": {
+          "description": "Rate specific song by downvoting",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Voting"
               }
             }
           }
@@ -116,6 +264,104 @@
           "friend_name": {
             "type": "string",
             "example": "Adam"
+          }
+        }
+      },
+      "Password": {
+        "required": [
+          "user_name",
+          "user_password",
+          "user_new_password"
+        ],
+        "type": "object",
+        "properties": {
+          "user_name": {
+            "type": "string",
+            "example": "Arnold"
+          },
+          "user_password": {
+            "type": "string",
+            "example": "topsicret"
+          },
+          "user_new_password": {
+            "type": "string",
+            "example": "(♥_♥)"
+          }
+        }
+      },
+      "Playlist": {
+        "required": [
+          "user_name",
+          "user_password",
+          "playlist_name"
+        ],
+        "type": "object",
+        "properties": {
+          "user_name": {
+            "type": "string",
+            "example": "Arnold"
+          },
+          "user_password": {
+            "type": "string",
+            "example": "topsicret"
+          },
+          "playlist_name": {
+            "type": "string",
+            "example": "I'll be back"
+          }
+        }
+      },
+      "Song": {
+        "required": [
+          "song_genre",
+          "song_year",
+          "song_performer",
+          "song_title"
+        ],
+        "type": "object",
+        "properties": {
+          "song_genre": {
+            "type": "string",
+            "example": "Rock"
+          },
+          "song_year": {
+            "type": "integer",
+            "example": "1970"
+          },
+          "song_performer": {
+            "type": "string",
+            "example": "Creedence Clearwater Revival"
+          },
+          "song_title": {
+            "type": "string",
+            "example": "Run Through the Jungle"
+          }
+        }
+      },
+      "Voting": {
+        "required": [
+          "user_name",
+          "user_password",
+          "playlist_name",
+          "song_title"
+        ],
+        "type": "object",
+        "properties": {
+          "user_name": {
+            "type": "string",
+            "example": "Arnold"
+          },
+          "user_password": {
+            "type": "string",
+            "example": "topsicret"
+          },
+          "playlist_name": {
+            "type": "string",
+            "example": "The best of the best of the best"
+          },
+          "song_title": {
+            "type": "string",
+            "example": "Run Through the Jungle"
           }
         }
       }
