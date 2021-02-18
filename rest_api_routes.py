@@ -4,8 +4,8 @@ import requests
 
 config = configparser.ConfigParser()
 config.read('./sources/config.ini')
-host = config['server']['host']
-port = config['server']['port']
+host = config['target']['host']
+port = config['target']['port']
 target = 'http://' + host + ':' + port
 
 
