@@ -21,12 +21,12 @@ def get_user():
 
 
 def add_friend():
-    r = requests.put(url='/users/add_friend', json=connexion.request.json)
+    r = requests.put(url=target + '/users/add_friend', json=connexion.request.json)
     return r.json()
 
 
 def change_password():
-    r = requests.put(url='users/change_password', json=connexion.request.json)
+    r = requests.put(url=target + 'users/change_password', json=connexion.request.json)
     return r.json()
 
 
@@ -41,12 +41,12 @@ def add_song():
 
 
 def song_upvote():
-    r = requests.put(url='/songs/upvote', json=connexion.request.json)
+    r = requests.put(url=target + '/songs/upvote', json=connexion.request.json)
     return r.json()
 
 
 def song_downvote():
-    r = requests.put(url='/songs/downvote', json=connexion.request.json)
+    r = requests.put(url=target + '/songs/downvote', json=connexion.request.json)
     return r.json()
 
 
