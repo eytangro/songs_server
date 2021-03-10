@@ -24,7 +24,9 @@
     "Arnold": {
         "password": "c6691396ab08abee755d4e51f077325f",
         "name": "Arnold",
-        "friends": [],
+        "friends": [
+            "Adam"
+        ],
         "playlists": {
             "I'll be back": []
         }
