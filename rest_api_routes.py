@@ -16,7 +16,8 @@ def add_user():
 
 
 def get_user():
-    r = requests.get(url=target + '/users/get_user', params=connexion.request.args['user_name'])
+    r = requests.get(url=target + '/users/get_user', params={'user_name': connexion.request.args['user_name']})
+    print(connexion.request.args['user_name'])
     return r.json()
 
 
@@ -51,7 +52,8 @@ def song_downvote():
 
 
 def ranked_songs():
-    r = requests.get(url=target + '/songs/ranked_songs', params=connexion.request.args['user_name'])
+    payload = {'rank=': connexion.request.args['rank'], 'op': connexion.request.args['op']}
+    r = requests.get(url=target + '/songs/ranked_songs', params=payload)
     return r.json()
 
 
