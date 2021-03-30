@@ -199,7 +199,7 @@ paths:
         description: Rank of the songs
         required: true
         schema:
-          type: integer
+          type: string
       - name: op
         in: query
         description: Rank of the songs
