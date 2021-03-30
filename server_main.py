@@ -214,6 +214,7 @@ def get_playlist():
     if valid != True:
         return valid
 
+
     user = Users.get_user(user_name)
 
     if user is None:
