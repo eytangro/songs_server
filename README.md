@@ -2,11 +2,41 @@
 
 This is swagger example for a song server.
 
-Please configure your swagger before using. In the sources folder you can find the config.ini
+## swagger configure
+under sources folder change the config.ini file
 
-[swagger_server] - port + ip => the details of where your swagger will be available. you can use your local adress)
-After adding those details you can go to the 'http://ip:port/ui'
 
-[target] - port + ip => details of your target server (UUT)
+## create a virtualenv
+```
+virtualenv venv --python=3.6
+```
 
-Feel free to contact me if you need any assistance. Good Luck!
+## activate the virtualenv
+### windows
+```
+venv\Scripts\activate.bat
+```
+
+### linux
+```
+source venv/bin/activate
+```
+
+## install all requirements
+```
+pip install -r requirements.txt
+```
+
+## run the swagger server
+```
+python run_swagger.py
+```
+
+### if the server dosent run or showes errors try changing line 10 in run swagger.py file to the absolute path to the yaml file in sources
+
+
+## when the server is up
+
+go to
+http://localhost:9090/ui
+ to see the swagger ui
