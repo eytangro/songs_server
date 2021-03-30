@@ -16,4 +16,13 @@ class Song:
         if self.rating<0:
             self.rating = 0
 
+    def get_details(self):
+        return {
+            "title":self.title,
+            "year":self.year,
+            "genre":self.genre,
+            "performer":self.performer,
+            "rating":self.rating
+        }
+
         

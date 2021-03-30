@@ -62,5 +62,20 @@ class User:
             "playlists":list(self.playlists.keys()),
             "friends":self.friends
         }
+    
+    def get_songs_in_playlist (self,playlist_name):
+        playlist = self.get_playlist(playlist_name)
+
+        if playlist is None:
+            return None
+        
+        songs = []
+        for k in playlist.songs:
+            songs.append(k.get_details())
+        
+        return songs
+        
+        
+
 
     

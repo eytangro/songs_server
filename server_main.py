@@ -202,6 +202,39 @@ def add_playlist():
     }
 
 
+@app.route ("/users/get_playlist", methods=['GET'])
+def get_playlist():
+    user_name = request.args.get("user_name")
+    user_password = request.args.get("user_password")
+    playlist_name = request.args.get("playlist_name")
+
+    valid = valid_parameters(
+        user_name=user_name, user_password=user_password, playlist_name=playlist_name)
+
+    if valid != True:
+        return valid
+
+    user = Users.get_user(user_name)
+
+    if user is None:
+        return {
+            "error": f"the user {user_name} does not exist"
+        }
+
+    if user.password != user.parse_password(user_password):
+        return {
+            "error": f"either the user name or the password are wrong"
+        }
+
+    playlist = user.get_songs_in_playlist (playlist_name)
+
+    return {
+        "message":"OK",
+        "data":playlist
+    }
+
+
+
 @app.route("/songs/add_song", methods=["POST"])
 def add_song():
     song_title = request.json.get("song_title")
@@ -228,6 +261,28 @@ def add_song():
     return {
         "message": "OK",
         "data": song_title
+    }
+
+
+@app.route ("/songs/get_song",methods = ['GET'])
+def get_song ():
+    song_title = request.args.get("song_title")
+
+    valid = valid_parameters(song_title=song_title)
+
+    if valid != True:
+        return valid
+    
+    song = SongsList.get_song (song_title)
+
+    if song is None:
+        return {
+            "error":"this song does not exsist"
+        }
+
+    return {
+        "message":"OK",
+        "data":song.get_details()
     }
 
 
