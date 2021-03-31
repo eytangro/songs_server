@@ -461,6 +461,21 @@ def set_songs():
     }
 
 
+
+@app.route ("/admin/delete_user",methods=["DELETE"])
+def delete_user():
+    user_name = request.json.get("user_name")
+
+    Users.delete_user (user_name)
+    set_from_db.write_users_to_file()
+
+
+    return{
+        "message":"OK"
+    }
+
+
+
 def valid_parameters(**kwargs):
     for key, value in kwargs.items():
         if value is None:

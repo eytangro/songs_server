@@ -33,3 +33,9 @@ class Users:
         
 
         return None
+
+
+    @classmethod
+    def delete_user (cls,user_name):
+        cls.users.pop (user_name,None)
+        return True
