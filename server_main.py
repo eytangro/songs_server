@@ -31,7 +31,7 @@ def add_user():
     set_from_db.write_users_to_file()
 
     return {
-        "messgae": "OK",
+        "message": "OK",
         "data": user
     }
 
@@ -444,7 +444,7 @@ def set_users():
     set_from_db.write_users_to_file()
 
     return {
-        "messgae": "OK"
+        "message": "OK"
     }
 
 
@@ -457,7 +457,7 @@ def set_songs():
     set_from_db.write_songs_to_file()
 
     return {
-        "messgae": "OK"
+        "message": "OK"
     }
 
 
